@@ -244,6 +244,17 @@ html.lenis {
 .rk-fc-white  { background: rgba(255,255,255,1) !important; box-shadow: inset 0 -4px 0 rgba(0,0,0,.15), 0 0 8px rgba(255,255,255,.3); }
 .rk-fc-inner  { background: transparent !important; box-shadow: none !important; border-color: transparent !important; opacity: 0; }
 
+/* Mobile: strip outer glow from faces (expensive on mobile GPU) and disable aura pulse */
+@media (max-width: 1023px) {
+  .rk-fc-red    { box-shadow: inset 0 -4px 0 rgba(0,0,0,.35); }
+  .rk-fc-orange { box-shadow: inset 0 -4px 0 rgba(0,0,0,.35); }
+  .rk-fc-blue   { box-shadow: inset 0 -4px 0 rgba(0,0,0,.35); }
+  .rk-fc-green  { box-shadow: inset 0 -4px 0 rgba(0,0,0,.35); }
+  .rk-fc-yellow { box-shadow: inset 0 -4px 0 rgba(0,0,0,.35); }
+  .rk-fc-white  { box-shadow: inset 0 -4px 0 rgba(0,0,0,.15); }
+  .rk-cube-aura { animation: none; opacity: 0.6; }
+}
+
 /* Cube UI — original values, status colour → acid green */
 .rk-cube-ui {
   text-align: center;

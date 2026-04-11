@@ -1,16 +1,20 @@
-import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 
+// Uses transform/opacity only — no padding or layout changes on hover/tap.
+// This keeps animation on the GPU compositor and avoids layout recalc on mobile.
 const ButtonWithIcon = () => {
   return (
-    <Button className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer bg-[#AAFF00] text-[#0A0A0A] hover:bg-[#AAFF00] hover:shadow-[0_8px_32px_rgba(170,255,0,0.35)]">
-      <span className="relative z-10 transition-all duration-500 font-grotesk font-semibold tracking-wider uppercase">
+    <div className="relative inline-flex items-center h-12 rounded-full bg-[#AAFF00] overflow-hidden group cursor-pointer hover:shadow-[0_8px_32px_rgba(170,255,0,0.35)] transition-shadow duration-300">
+      {/* Label */}
+      <span className="relative z-10 pl-6 pr-14 font-grotesk font-semibold text-sm tracking-wider uppercase text-[#0A0A0A] transition-transform duration-300 group-hover:-translate-x-1">
         Let&apos;s Collaborate
       </span>
-      <div className="absolute right-1 w-10 h-10 bg-[#0A0A0A] text-[#AAFF00] rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-44px)] group-hover:rotate-45">
+
+      {/* Icon pill — translates left on hover, no layout change */}
+      <div className="absolute right-1 w-10 h-10 bg-[#0A0A0A] text-[#AAFF00] rounded-full flex items-center justify-center transition-transform duration-300 group-hover:-translate-x-[calc(100%-1rem)] group-hover:rotate-45">
         <ArrowUpRight size={16} />
       </div>
-    </Button>
+    </div>
   );
 };
 

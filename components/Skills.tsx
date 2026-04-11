@@ -8,6 +8,7 @@ import {
   useInView,
   useMotionValue,
 } from "motion/react";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 
 const ROW1 = [
   { name: "Next.js",       category: "Framework" },
@@ -51,15 +52,16 @@ export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headingRef, { once: true, margin: "-10%" });
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Scroll-driven base transforms
-  const scrollX1 = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const scrollX2 = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
+  // Scroll-driven base transforms — zero on mobile (too expensive)
+  const scrollX1 = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "-30%"]);
+  const scrollX2 = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["-30%", "0%"]);
 
   // Writable drag offsets — combine with scroll so both work together
   const dragX1 = useMotionValue(0);
@@ -131,30 +133,30 @@ export default function Skills() {
         <div className="absolute right-0 top-0 h-full w-32 lg:w-48 z-10 pointer-events-none"
           style={{ background: "linear-gradient(to left, #0A0A0A 0%, transparent 100%)" }} />
 
-        {/* Row 1 — scroll left + draggable */}
+        {/* Row 1 — scroll left + draggable (desktop only) */}
         <motion.div
           style={{ x: combinedX1 }}
-          drag="x"
+          drag={isMobile ? false : "x"}
           dragConstraints={{ left: DRAG_LEFT_LIMIT, right: 0 }}
           dragElastic={0.08}
           dragMomentum
           _dragX={dragX1}
-          className="flex gap-5 w-max px-6 cursor-grab active:cursor-grabbing"
+          className={`flex gap-5 w-max px-6 ${isMobile ? "" : "cursor-grab active:cursor-grabbing"}`}
         >
           {[...ROW1, ...ROW1].map((skill, i) => (
             <SkillCard key={i} {...skill} />
           ))}
         </motion.div>
 
-        {/* Row 2 — scroll right + draggable */}
+        {/* Row 2 — scroll right + draggable (desktop only) */}
         <motion.div
           style={{ x: combinedX2 }}
-          drag="x"
+          drag={isMobile ? false : "x"}
           dragConstraints={{ left: DRAG_LEFT_LIMIT, right: 0 }}
           dragElastic={0.08}
           dragMomentum
           _dragX={dragX2}
-          className="flex gap-5 w-max px-6 cursor-grab active:cursor-grabbing"
+          className={`flex gap-5 w-max px-6 ${isMobile ? "" : "cursor-grab active:cursor-grabbing"}`}
         >
           {[...ROW2, ...ROW2].map((skill, i) => (
             <SkillCard key={i} {...skill} />

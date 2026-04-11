@@ -5,11 +5,11 @@ import { Home, User, Code2, FolderOpen, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const ITEMS = [
-  { icon: Home,       label: "Home",    href: "#home"       },
-  { icon: User,       label: "About",   href: "#about"      },
-  { icon: Code2,      label: "Stack",   href: "#skills"     },
-  { icon: FolderOpen, label: "Work",    href: "#projects"   },
-  { icon: Mail,       label: "Contact", href: "#contact"    },
+  { icon: Home, label: "Home", href: "#home" },
+  { icon: User, label: "About", href: "#about" },
+  { icon: Code2, label: "Projects", href: "#projects" },
+  { icon: FolderOpen, label: "Work", href: "#experience" },
+  { icon: Mail, label: "Contact", href: "#contact" },
 ];
 
 export default function MobileDock() {

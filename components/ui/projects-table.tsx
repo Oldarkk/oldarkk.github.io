@@ -99,10 +99,10 @@ function ProjectRow({
         {expanded && (
           <motion.div
             key="details"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="overflow-hidden border-t border-[#F5F5F5]/[0.06] bg-[#F5F5F5]/[0.02]"
           >
             <div className="px-4 sm:px-6 py-5 space-y-5">

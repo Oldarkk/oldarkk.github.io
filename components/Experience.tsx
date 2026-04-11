@@ -499,7 +499,7 @@ export default function Experience() {
             {/* Backdrop */}
             <motion.div
               key="backdrop"
-              className="fixed inset-0 z-[1200] bg-[#0A0A0A]/80 backdrop-blur-sm"
+              className="fixed inset-0 z-[1200] bg-[#0A0A0A]/85 md:backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

@@ -274,7 +274,10 @@ export default function RubiksCube() {
     const visibilityObserver = new IntersectionObserver(
       ([entry]) => {
         paused = !entry.isIntersecting;
-        if (!paused && !destroyed) animRafId = requestAnimationFrame(animRot);
+        if (!paused && !destroyed) {
+          cancelAnimationFrame(animRafId);
+          animRafId = requestAnimationFrame(animRot);
+        }
       },
       { threshold: 0.1 }
     );
