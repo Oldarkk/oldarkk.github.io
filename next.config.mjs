@@ -2,6 +2,7 @@
 const nextConfig = {
 
   output: 'export',
+  distDir: 'docs',
 
   // Strip X-Powered-By header
   poweredByHeader: false,
@@ -18,6 +19,7 @@ const nextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+    unoptimized: true,
   },
 
   // Tree-shake lucide-react so only imported icons end up in the bundle
