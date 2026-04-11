@@ -2,26 +2,345 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Base ───────────────────────────────────────────────────────── */
+/* Fonts are loaded via next/font/google in layout.tsx — no @import needed here */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black: #0A0A0A;
+  --white: #F5F5F5;
+  --acid: #AAFF00;
+  --dark-green: #0A1A00;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* must match body — browsers transfer body's overflow-x to viewport otherwise */
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  /* Hide default cursor on desktop — custom cursor takes over */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Hide default cursor only on desktop */
+@media (min-width: 1024px) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────── */
+::selection {
+  background: var(--acid);
+  color: var(--black);
+}
+
+/* ─── Lenis smooth scroll ────────────────────────────────────────── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ─── Typography utilities ───────────────────────────────────────── */
+.font-grotesk {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ─── Fluid type scales using clamp() ───────────────────────────── */
+.text-hero {
+  font-size: clamp(3rem, 18vw, 16rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.text-section-heading {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.text-project-title {
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+
+/* ─── Marquee — CSS keyframe runs on compositor ─────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Badge availability blink ───────────────────────────────────── */
+@keyframes badge-blink {
+  0%,100% { opacity: 1; transform: scale(1);   }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ─── Grain overlay — CSS background-position animation ─────────── */
+/* Shifts the pre-rendered tile around — compositor only, no JS per frame */
+@keyframes grain-shift {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -53px -78px; }
+  40%  { background-position: -102px 29px; }
+  60%  { background-position: 27px -54px; }
+  80%  { background-position: -74px 108px; }
+  100% { background-position: 0 0; }
+}
+
+/* ─── Custom cursor ──────────────────────────────────────────────── */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* ─── Scroll progress bar ────────────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--acid);
+  z-index: 10000;
+  transform-origin: left;
+}
+
+/* ─── Marquee ────────────────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ─── Rubik's Cube component ─────────────────────────────────────── */
+/* CSS is a 1:1 copy from sample/Rubiks-Cube/index.html.             */
+/* Only changes: class names prefixed rk-, aura colour → acid green. */
+
+.rk-cube-wrapper {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Aura — original used orange/red, adapted to acid green for portfolio palette */
+.rk-cube-aura {
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(circle at 50% 50%, rgba(170,255,0,0.14) 0%, rgba(100,200,0,0.08) 40%, transparent 70%);
+  animation: rk-aura 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 50%;
+}
+@keyframes rk-aura {
+  0%,100% { transform: scale(1);   opacity: .8; }
+  50%      { transform: scale(1.1); opacity: 1;  }
+}
+
+/* Viewport — original values unchanged */
+.rk-cube-viewport {
+  width: 240px;
+  height: 240px;
+  perspective: 960px;
+  perspective-origin: 50% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scene */
+.rk-cube-scene {
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(-22deg) rotateY(45deg);
+  will-change: transform;
+}
+.rk-cube-scene:active { cursor: grabbing; }
+
+/* Each small cubie — original values unchanged */
+.rk-cubie {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  transform-style: preserve-3d;
+}
+
+/* Each face — original values unchanged */
+.rk-cubie-face {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  border-radius: 9px;
+  border: 3px solid #050505;
+  backface-visibility: visible;
+}
+
+/* Gloss overlay — original unchanged */
+.rk-gloss {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(255,255,255,.27) 0%, transparent 52%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Shine overlay — original unchanged */
+.rk-shine {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 38%;
+  border-radius: 0 0 6px 6px;
+  background: rgba(0,0,0,.22);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Face colours — original values unchanged */
+.rk-fc-red    { background: #FF5800; box-shadow: inset 0 -4px 0 rgba(0,0,0,.35), 0 0 12px #FF5800; }
+.rk-fc-orange { background: #C41E3A; box-shadow: inset 0 -4px 0 rgba(0,0,0,.35), 0 0 12px #C41E3A; }
+.rk-fc-blue   { background: rgba(0,81,162,1);  box-shadow: inset 0 -4px 0 rgba(0,0,0,.35), 0 0 12px rgba(0,81,162,.55); }
+.rk-fc-green  { background: rgba(0,155,72,1);  box-shadow: inset 0 -4px 0 rgba(0,0,0,.35), 0 0 12px rgba(0,155,72,.55); }
+.rk-fc-yellow { background: rgba(255,213,0,1) !important; box-shadow: inset 0 -4px 0 rgba(0,0,0,.35), 0 0 12px rgba(255,213,0,.55); }
+.rk-fc-white  { background: rgba(255,255,255,1) !important; box-shadow: inset 0 -4px 0 rgba(0,0,0,.15), 0 0 8px rgba(255,255,255,.3); }
+.rk-fc-inner  { background: transparent !important; box-shadow: none !important; border-color: transparent !important; opacity: 0; }
+
+/* Cube UI — original values, status colour → acid green */
+.rk-cube-ui {
+  text-align: center;
+  margin-top: 80px;
+}
+.rk-cube-status {
+  font: 700 .82rem 'Space Grotesk', sans-serif;
+  color: #AAFF00;
+  letter-spacing: .8px;
+  margin-bottom: 12px;
+  min-height: 1.2em;
+  text-shadow: 0 0 12px rgba(170,255,0,.4);
+}
+.rk-cube-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+.rk-cbtn {
+  padding: 7px 18px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+  color: #7a7a99;
+  border-radius: 8px;
+  font: 600 .82rem 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  transition: all .2s;
+}
+.rk-cbtn:hover:not(:disabled) {
+  border-color: #AAFF00;
+  color: #AAFF00;
+}
+.rk-cbtn-solve {
+  border-color: rgba(170,255,0,.3);
+  color: rgba(170,255,0,.7);
+}
+.rk-cbtn-solve:hover:not(:disabled) {
+  border-color: #AAFF00;
+  color: #AAFF00;
+  background: rgba(170,255,0,.07);
+}
+.rk-cbtn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+.rk-cube-hint {
+  font-size: .75rem;
+  color: #7a7a99;
+  letter-spacing: .3px;
+}
+
+/* ─── Clip reveal animation ──────────────────────────────────────── */
+.clip-hidden {
+  clip-path: inset(0 100% 0 0);
+}
+.clip-reveal {
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ─── Link underline draw ────────────────────────────────────────── */
+.underline-draw {
+  position: relative;
+  display: inline-block;
+}
+.underline-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--acid);
+  transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.underline-draw:hover::after {
+  width: 100%;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Mobile specific ────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .text-hero {
+    font-size: clamp(3rem, 20vw, 6rem);
+    letter-spacing: -0.03em;
+  }
+
+  #grain-canvas {
+    display: none;
   }
 }
