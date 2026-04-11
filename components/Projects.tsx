@@ -75,7 +75,7 @@ export default function Projects() {
       {/* ── Background glows (sit behind project image layer) ── */}
       {/* Emerald glow — top-left corner anchor */}
       <div
-        className="absolute -top-16 -left-16 w-[480px] h-[400px] pointer-events-none z-0"
+        className="glow-blob absolute -top-16 -left-16 w-[480px] h-[400px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle at top left, rgba(52,211,153,0.09) 0%, transparent 70%)",
           filter: "blur(72px)",
@@ -83,7 +83,7 @@ export default function Projects() {
       />
       {/* Rose accent — bottom-right, warm contrast */}
       <div
-        className="absolute bottom-0 right-0 w-[500px] h-[440px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-0 right-0 w-[500px] h-[440px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle at bottom right, rgba(244,63,94,0.07) 0%, transparent 70%)",
           filter: "blur(80px)",
@@ -91,7 +91,7 @@ export default function Projects() {
       />
       {/* Acid-green center pulse — very faint */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[560px] h-[400px] pointer-events-none z-0"
+        className="glow-blob absolute top-1/3 left-1/2 -translate-x-1/2 w-[560px] h-[400px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(ellipse, rgba(170,255,0,0.04) 0%, transparent 65%)",
           filter: "blur(90px)",

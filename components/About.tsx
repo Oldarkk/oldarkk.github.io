@@ -20,7 +20,7 @@ export default function About() {
       {/* ── Background glows ── */}
       {/* Acid-green bloom — top-left, echoes the accent colour */}
       <div
-        className="absolute -top-24 -left-24 w-[520px] h-[520px] pointer-events-none z-0"
+        className="glow-blob absolute -top-24 -left-24 w-[520px] h-[520px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle, rgba(170,255,0,0.09) 0%, transparent 70%)",
           filter: "blur(48px)",
@@ -28,7 +28,7 @@ export default function About() {
       />
       {/* Steel-blue bloom — top-right */}
       <div
-        className="absolute -top-16 right-0 w-[480px] h-[420px] pointer-events-none z-0"
+        className="glow-blob absolute -top-16 right-0 w-[480px] h-[420px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle at top right, rgba(70,130,200,0.13) 0%, transparent 70%)",
           filter: "blur(64px)",
@@ -36,7 +36,7 @@ export default function About() {
       />
       {/* Warm amber whisper — bottom-center, very faint depth */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(ellipse at bottom, rgba(170,255,0,0.04) 0%, transparent 70%)",
           filter: "blur(72px)",

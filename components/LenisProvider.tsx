@@ -14,6 +14,9 @@ export default function LenisProvider({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Mobile has native momentum scrolling — Lenis adds a RAF loop with no benefit
+    if (window.innerWidth < 1024) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

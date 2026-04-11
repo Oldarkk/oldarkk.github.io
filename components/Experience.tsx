@@ -302,15 +302,15 @@ export default function Experience() {
     <section id="experience" className="relative px-4 sm:px-6 lg:px-10 py-24 lg:py-32">
       {/* Background glows */}
       <div
-        className="absolute -top-20 -left-10 w-[460px] h-[420px] pointer-events-none z-0"
+        className="glow-blob absolute -top-20 -left-10 w-[460px] h-[420px] pointer-events-none z-0"
         style={{ background: "radial-gradient(circle at top left, rgba(96,165,250,0.09) 0%, transparent 70%)", filter: "blur(72px)" }}
       />
       <div
-        className="absolute bottom-0 right-0 w-[500px] h-[400px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-0 right-0 w-[500px] h-[400px] pointer-events-none z-0"
         style={{ background: "radial-gradient(circle at bottom right, rgba(251,191,36,0.07) 0%, transparent 70%)", filter: "blur(80px)" }}
       />
       <div
-        className="absolute top-1/2 -translate-y-1/2 right-0 w-[380px] h-[380px] pointer-events-none z-0"
+        className="glow-blob absolute top-1/2 -translate-y-1/2 right-0 w-[380px] h-[380px] pointer-events-none z-0"
         style={{ background: "radial-gradient(circle, rgba(170,255,0,0.06) 0%, transparent 70%)", filter: "blur(64px)" }}
       />
 

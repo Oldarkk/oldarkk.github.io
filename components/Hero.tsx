@@ -151,7 +151,7 @@ export default function Hero() {
       {/* ── Background glows ── */}
       {/* Acid-green spotlight — top-center, hero "source" light */}
       <div
-        className="absolute top-0 left-0 right-0 h-[500px] pointer-events-none z-0"
+        className="glow-blob absolute top-0 left-0 right-0 h-[500px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(ellipse at top center, rgba(170,255,0,0.07) 0%, transparent 65%)",
           filter: "blur(60px)",
@@ -159,7 +159,7 @@ export default function Hero() {
       />
       {/* Deep indigo bloom — bottom-right, contrast depth */}
       <div
-        className="absolute bottom-0 right-0 w-[500px] h-[500px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-0 right-0 w-[500px] h-[500px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle at bottom right, rgba(99,102,241,0.12) 0%, transparent 70%)",
           filter: "blur(80px)",
@@ -167,7 +167,7 @@ export default function Hero() {
       />
       {/* Faint teal glimmer — bottom-left edge */}
       <div
-        className="absolute bottom-10 -left-20 w-[360px] h-[360px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-10 -left-20 w-[360px] h-[360px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle, rgba(20,184,166,0.07) 0%, transparent 70%)",
           filter: "blur(72px)",

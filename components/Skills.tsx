@@ -1,14 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useInView,
-  useMotionValue,
-} from "motion/react";
-import { useIsMobile } from "@/hooks/useMediaQuery";
+import { motion, useInView } from "motion/react";
 
 const ROW1 = [
   { name: "Next.js",       category: "Framework" },
@@ -32,9 +25,6 @@ const ROW2 = [
   { name: "Docker",        category: "DevOps" },
 ];
 
-// Card width (200px) + gap (20px) × 16 items
-const DRAG_LEFT_LIMIT = -(200 + 20) * 16;
-
 function SkillCard({ name, category }: { name: string; category: string }) {
   return (
     <div className="flex-shrink-0 w-[200px] md:w-[240px] px-6 py-5 rounded-2xl border border-[#F5F5F5]/10 bg-[#F5F5F5]/[0.03] hover:border-[#AAFF00]/40 hover:bg-[#AAFF00]/[0.04] transition-colors duration-300 group">
@@ -49,52 +39,33 @@ function SkillCard({ name, category }: { name: string; category: string }) {
 }
 
 export default function Skills() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headingRef, { once: true, margin: "-10%" });
-  const isMobile = useIsMobile();
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Scroll-driven base transforms — zero on mobile (too expensive)
-  const scrollX1 = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "-30%"]);
-  const scrollX2 = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["-30%", "0%"]);
-
-  // Writable drag offsets — combine with scroll so both work together
-  const dragX1 = useMotionValue(0);
-  const dragX2 = useMotionValue(0);
-  const combinedX1 = useTransform(() => `calc(${scrollX1.get()} + ${dragX1.get()}px)`);
-  const combinedX2 = useTransform(() => `calc(${scrollX2.get()} + ${dragX2.get()}px)`);
 
   return (
     <section
       id="skills"
-      ref={containerRef}
+      ref={sectionRef}
       className="relative py-24 lg:py-32"
     >
       {/* ── Background glows ── */}
-      {/* Violet bloom — top-right, tech/creative energy */}
       <div
-        className="absolute -top-20 right-0 w-[550px] h-[480px] pointer-events-none z-0"
+        className="glow-blob absolute -top-20 right-0 w-[550px] h-[480px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle at top right, rgba(139,92,246,0.11) 0%, transparent 70%)",
           filter: "blur(72px)",
         }}
       />
-      {/* Acid-green pulse — center-left */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 -left-20 w-[420px] h-[420px] pointer-events-none z-0"
+        className="glow-blob absolute top-1/2 -translate-y-1/2 -left-20 w-[420px] h-[420px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(circle, rgba(170,255,0,0.07) 0%, transparent 70%)",
           filter: "blur(64px)",
         }}
       />
-      {/* Cyan accent — bottom-center */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none z-0"
+        className="glow-blob absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none z-0"
         style={{
           background: "radial-gradient(ellipse at bottom, rgba(34,211,238,0.06) 0%, transparent 70%)",
           filter: "blur(80px)",
@@ -126,6 +97,8 @@ export default function Skills() {
       </div>
 
       {/* ── Rows with edge fade ── */}
+      {/* CSS auto-scroll handles both mobile and desktop.               */}
+      {/* On desktop the animation pauses on hover (see globals.css).    */}
       <div className="relative flex flex-col gap-5 overflow-hidden">
         {/* Edge fades */}
         <div className="absolute left-0 top-0 h-full w-32 lg:w-48 z-10 pointer-events-none"
@@ -133,35 +106,23 @@ export default function Skills() {
         <div className="absolute right-0 top-0 h-full w-32 lg:w-48 z-10 pointer-events-none"
           style={{ background: "linear-gradient(to left, #0A0A0A 0%, transparent 100%)" }} />
 
-        {/* Row 1 — scroll left + draggable (desktop only) */}
-        <motion.div
-          style={{ x: combinedX1 }}
-          drag={isMobile ? false : "x"}
-          dragConstraints={{ left: DRAG_LEFT_LIMIT, right: 0 }}
-          dragElastic={0.08}
-          dragMomentum
-          _dragX={dragX1}
-          className={`flex gap-5 w-max px-6 ${isMobile ? "" : "cursor-grab active:cursor-grabbing"}`}
-        >
-          {[...ROW1, ...ROW1].map((skill, i) => (
-            <SkillCard key={i} {...skill} />
-          ))}
-        </motion.div>
+        {/* Row 1 — auto-scrolls left on desktop, touch-scrollable on mobile */}
+        <div className="skills-row-outer">
+          <div className="skills-row-left flex gap-5 w-max px-6">
+            {[...ROW1, ...ROW1].map((skill, i) => (
+              <SkillCard key={i} {...skill} />
+            ))}
+          </div>
+        </div>
 
-        {/* Row 2 — scroll right + draggable (desktop only) */}
-        <motion.div
-          style={{ x: combinedX2 }}
-          drag={isMobile ? false : "x"}
-          dragConstraints={{ left: DRAG_LEFT_LIMIT, right: 0 }}
-          dragElastic={0.08}
-          dragMomentum
-          _dragX={dragX2}
-          className={`flex gap-5 w-max px-6 ${isMobile ? "" : "cursor-grab active:cursor-grabbing"}`}
-        >
-          {[...ROW2, ...ROW2].map((skill, i) => (
-            <SkillCard key={i} {...skill} />
-          ))}
-        </motion.div>
+        {/* Row 2 — auto-scrolls right on desktop, touch-scrollable on mobile */}
+        <div className="skills-row-outer">
+          <div className="skills-row-right flex gap-5 w-max px-6">
+            {[...ROW2, ...ROW2].map((skill, i) => (
+              <SkillCard key={i} {...skill} />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Bottom divider ── */}
