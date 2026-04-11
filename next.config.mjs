@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
+  output: 'export',
+
   // Strip X-Powered-By header
   poweredByHeader: false,
 
