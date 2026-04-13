@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronDown, Filter, Search, ExternalLink, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
-type ProjectType = "agency" | "marketplace" | "saas" | "tool";
+type ProjectType = "agency" | "landing" | "marketplace" | "saas" | "tool";
 type ProjectStatus = "live" | "in-progress" | "shipped";
 
 export interface Project {
@@ -23,6 +23,7 @@ type Filters = { type: string[]; status: string[]; stack: string[] };
 
 const typeStyles: Record<ProjectType, string> = {
   agency:      "bg-violet-500/10 text-violet-400 border border-violet-500/20",
+  landing:     "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
   marketplace: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
   saas:        "bg-orange-500/10 text-orange-400 border border-orange-500/20",
   tool:        "bg-pink-500/10 text-pink-400 border border-pink-500/20",
