@@ -24,13 +24,13 @@ const inter = Inter({
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Aiman — Full Stack Developer & Founder",
+  title: "Aiman — Full Stack Developer",
   description:
-    "Full stack developer and founder based in Miri, Sarawak. Co-founder of Scribear, builder of SERVIS.MY.",
+    "Full-stack developer based in Miri, Sarawak. Building web products that ship.",
   keywords: ["full stack developer", "Next.js", "Supabase", "Miri", "Sarawak", "Malaysia"],
   authors: [{ name: "Aiman" }],
   openGraph: {
-    title: "Aiman — Full Stack Developer & Founder",
+    title: "Aiman — Full Stack Developer",
     description: "Building products that solve real problems.",
     type: "website",
   },

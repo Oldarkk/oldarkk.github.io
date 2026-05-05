@@ -225,7 +225,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.5, ease: [0.76, 0, 0.24, 1] }}
           >
-            Full Stack Developer &amp; Founder
+            Full Stack Developer
           </motion.p>
 
           {/* Bio */}

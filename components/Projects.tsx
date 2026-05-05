@@ -10,18 +10,6 @@ const PROJECTS: Project[] = [
     id: "1",
     year: "2025",
     type: "landing",
-    name: "Scribear",
-    description:
-      "Official landing page for Scribear, a web development agency based in Miri, Sarawak. Designed and developed the full site personally, featuring smooth scroll animations, a dark theme, service overview, process breakdown, and contact form.",
-    status: "live",
-    stack: ["Next.js", "Tailwind CSS", "GSAP", "TypeScript"],
-    href: "https://scribear.my",
-    image: "/scribear.png",
-  },
-  {
-    id: "2",
-    year: "2025",
-    type: "landing",
     name: "Idaman Sound System",
     description:
       "Landing page for a local sound system rental and event services business in Miri. Covers service packages, equipment listings, and contact details, designed to help the client establish a professional online presence.",
@@ -31,14 +19,27 @@ const PROJECTS: Project[] = [
     image: "/Idaman.png",
   },
   {
+    id: "2",
+    year: "2025",
+    type: "landing",
+    name: "Pelita Clinic",
+    description:
+      "Designed and developed a landing page for a local clinic client, covering service listings, doctor profiles, and contact information.",
+    status: "live",
+    stack: ["Next.js", "Tailwind CSS"],
+    href: "https://pelitaclinicmiri.com.my",
+    image: "/pelita.png",
+  },
+  {
     id: "3",
     year: "2025",
     type: "marketplace",
     name: "ServisMY",
     description:
-      "A two-sided services marketplace built for Miri, Sarawak — connecting consumers with local service providers across categories like aircond servicing, plumbing, and cleaning. Built end to end as a solo founder project, covering everything from database schema design to frontend UI. Currently in active development targeting pilot launch.",
-    status: "in-progress",
+      "A two-sided services marketplace built for Miri, Sarawak — connecting consumers with local service providers across categories like aircond servicing, plumbing, and cleaning. Built end to end as a personal project, covering everything from database schema design to frontend UI.",
+    status: "live",
     stack: ["Next.js", "Supabase", "Tailwind CSS", "PostgreSQL"],
+    href: "https://servismy.com",
     image: "/servismy.png",
   },
 ];

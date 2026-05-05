@@ -196,9 +196,9 @@ export default function About() {
                 timelineRef={sectionRef as React.RefObject<HTMLElement>}
                 className="leading-relaxed sm:text-base text-sm text-justify"
               >
-                I&apos;m Aiman, a full-stack developer and founder based in Miri, Sarawak.
-                Currently building SERVIS.MY, a two-sided services marketplace for Sarawak,
-                and leading Scribear, a web development agency empowering local businesses.
+                I&apos;m Aiman, a full-stack developer based in Miri, Sarawak.
+                Currently working freelance, delivering client websites and building SERVIS.MY,
+                a two-sided services marketplace for Sarawak.
               </TimelineContent>
               <TimelineContent
                 as="p"
@@ -230,7 +230,7 @@ export default function About() {
                 timelineRef={sectionRef as React.RefObject<HTMLElement>}
                 className="text-[#F5F5F5]/40 text-sm mb-8 font-inter"
               >
-                Full-Stack Developer &amp; Founder
+                Full-Stack Developer
               </TimelineContent>
 
               <TimelineContent
